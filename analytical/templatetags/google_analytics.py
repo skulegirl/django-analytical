@@ -77,6 +77,7 @@ class GoogleAnalyticsNode(Node):
         commands = self._get_domain_commands(context)
         commands.extend(self._get_custom_var_commands(context))
         commands.extend(self._get_other_commands(context))
+        commands.append(SEND_PAGEVIEW_CODE)
         html = SETUP_CODE % {
             'commands': " ".join(commands),
         }
@@ -96,7 +97,6 @@ class GoogleAnalyticsNode(Node):
                 raise AnalyticalException(
                     "tracking multiple domains with Google Analytics requires a domain name")
             commands.append(DOMAIN_CODE % domain)
-        commands.append(SEND_PAGEVIEW_CODE)
         return commands
 
     def _get_create_command(self, context, tracking_type):
